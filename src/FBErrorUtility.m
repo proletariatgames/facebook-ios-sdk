@@ -187,8 +187,8 @@ static const int FBSDKSystemPasswordErrorSubcode = 65001;
 
 + (BOOL)fberrorIsErrorFromSystemSession:(NSError *)error {
     // Categorize the error as system error if we have session state, or the error is wrapping an error from Apple.
-    return ((FBSession*)error.userInfo[FBErrorSessionKey]).accessTokenData.loginType == FBSessionLoginTypeSystemAccount
-     || [((NSError *)error.userInfo[FBErrorInnerErrorKey]).domain isEqualToString:@"com.apple.accounts"];
+    return ((FBSession*)[error.userInfo objectForKey:FBErrorSessionKey]).accessTokenData.loginType == FBSessionLoginTypeSystemAccount
+        || [((NSError *)[error.userInfo objectForKey:FBErrorInnerErrorKey]).domain isEqualToString:@"com.apple.accounts"];
 }
 
 + (void)fberrorGetCodeValueForError:(NSError *)error

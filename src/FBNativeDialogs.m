@@ -165,9 +165,9 @@
 + (NSError *)createError:(NSString *)reason
                  session:(FBSession *)session {
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-    userInfo[FBErrorNativeDialogReasonKey] = reason;
+    [userInfo setObject:reason forKey:FBErrorNativeDialogReasonKey];
     if (session) {
-        userInfo[FBErrorSessionKey] = session;
+        [userInfo setObject:session forKey:FBErrorSessionKey];
     }
     NSError *error = [NSError errorWithDomain:FacebookSDKDomain
                                          code:FBErrorNativeDialog

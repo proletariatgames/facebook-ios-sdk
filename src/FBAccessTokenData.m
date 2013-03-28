@@ -84,21 +84,21 @@
     
     NSDictionary *queryDictionary = [FBUtility dictionaryByParsingURLQueryPart:query];
     
-    return [self createTokenFromString:queryDictionary[@"access_token"]
+    return [self createTokenFromString:[queryDictionary objectForKey:@"access_token"]
                            permissions:nil
-                        expirationDate:[FBUtility expirationDateFromExpirationTimeString:queryDictionary[@"expires_in"]]
+                        expirationDate:[FBUtility expirationDateFromExpirationTimeString:[queryDictionary objectForKey:@"expires_in"]]
                              loginType:FBSessionLoginTypeFacebookApplication
                            refreshDate:nil];
 }
 
 + (FBAccessTokenData *) createTokenFromDictionary:(NSDictionary *)dictionary {
-    NSString *dictionaryToken = dictionary[FBTokenInformationTokenKey];
-    NSDate *dictionaryExpirationDate = dictionary[FBTokenInformationExpirationDateKey];
-    NSArray *dictionaryPermissions = dictionary[FBTokenInformationPermissionsKey];
-    FBSessionLoginType dictionaryLoginType = [dictionary[FBTokenInformationLoginTypeLoginKey] intValue];
-    BOOL dictionaryIsFacebookLoginType = [dictionary[FBTokenInformationIsFacebookLoginKey] boolValue];
-    NSDate *dictionaryRefreshDate = dictionary[FBTokenInformationRefreshDateKey];
-    
+    NSString *dictionaryToken = [dictionary objectForKey:FBTokenInformationTokenKey];
+    NSDate *dictionaryExpirationDate = [dictionary objectForKey:FBTokenInformationExpirationDateKey];
+    NSArray *dictionaryPermissions = [dictionary objectForKey:FBTokenInformationPermissionsKey];
+    FBSessionLoginType dictionaryLoginType = [[dictionary objectForKey:FBTokenInformationLoginTypeLoginKey] intValue];
+    BOOL dictionaryIsFacebookLoginType = [[dictionary objectForKey:FBTokenInformationIsFacebookLoginKey] boolValue];
+    NSDate *dictionaryRefreshDate = [dictionary objectForKey:FBTokenInformationRefreshDateKey];
+
     if (dictionaryIsFacebookLoginType && dictionaryLoginType == FBSessionLoginTypeNone) {
         // The internal isFacebookLogin has been removed but to support backwards compatibility,
         // we will still check it and set the login type appropriately.

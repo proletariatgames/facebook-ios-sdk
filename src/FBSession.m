@@ -1531,16 +1531,16 @@ static FBSession *g_activeSession = nil;
     // capture reason and nested code as user info
     NSMutableDictionary* userinfo = [[NSMutableDictionary alloc] init];
     if (errorReason) {
-        userinfo[FBErrorLoginFailedReason] = errorReason;
+        [userinfo setObject:errorReason forKey:FBErrorLoginFailedReason];
     }
     if (errorCode) {
-        userinfo[FBErrorLoginFailedOriginalErrorCode] = errorCode;
+        [userinfo setObject:errorCode forKey:FBErrorLoginFailedOriginalErrorCode];
     }
     if (innerError) {
-        userinfo[FBErrorInnerErrorKey] = innerError;
+        [userinfo setObject:innerError forKey:FBErrorInnerErrorKey];
     }
-    userinfo[FBErrorSessionKey] = self;
-   
+    [userinfo setObject:self forKey:FBErrorSessionKey];
+
     // create error object
     NSError *err = [NSError errorWithDomain:FacebookSDKDomain
                                       code:FBErrorLoginFailedOrCancelled

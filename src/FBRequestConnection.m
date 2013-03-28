@@ -1319,15 +1319,15 @@ typedef enum FBRequestConnectionState {
     [userInfo setObject:[NSNumber numberWithInt:statusCode] forKey:FBErrorHTTPStatusCodeKey];
 
     if (response) {
-        userInfo[FBErrorParsedJSONResponseKey] = response;
+        [userInfo setObject:response forKey:FBErrorParsedJSONResponseKey];
     }
     
     if (innerError) {
-        userInfo[FBErrorInnerErrorKey] = innerError;
+        [userInfo setObject:innerError forKey:FBErrorInnerErrorKey];
     }
     
     if (message) {
-        userInfo[NSLocalizedDescriptionKey] = message;
+        [userInfo setObject:message forKey:NSLocalizedDescriptionKey];
     }
     
     // if we only have one session (possibly more than once) in this batch, stuff it in the error,
@@ -1345,7 +1345,7 @@ typedef enum FBRequestConnectionState {
     }
     
     if (session) {
-        userInfo[FBErrorSessionKey] = session;
+        [userInfo setObject:session forKey:FBErrorSessionKey];
     }
     
     NSError *error = [[[NSError alloc]
